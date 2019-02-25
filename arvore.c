@@ -52,3 +52,15 @@ void imprimiArv(Arvore *a){
     }
 
 }
+
+int numeroNo(Arvore *a){
+
+    int num = 0;
+    Arvore *arv;
+    for(arv=a->raiz->esquerda; arv != NULL; arv = arv->raiz->direita){
+        num ++;
+    }
+
+    return num;
+
+}

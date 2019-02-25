@@ -23,4 +23,6 @@ void construirArv(Arvore *a, int num);
 
 void imprimiArv(Arvore *a);
 
+int numeroNo(Arvore *a);
+
 #endif //ARVORE_ARVORE_H
