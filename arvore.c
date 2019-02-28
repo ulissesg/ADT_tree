@@ -11,7 +11,9 @@ Arvore *alocaArv(){
 }
 
 void desalocaArv(Arvore *arv){
-    return desalocaNo(arv->raiz);
+    desalocaNo(arv->raiz);
+    free(arv);
+
 }
 
 //No *busca(Arvore *a, No *raiz, int *chave) {

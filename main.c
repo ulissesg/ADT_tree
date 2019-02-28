@@ -6,6 +6,8 @@ int main() {
     Arvore *arv = alocaArv();
     construirArv(arv, 8);
     construirArv(arv, 7);
+    construirArv(arv, 6);
+    construirArv(arv, 10);
     imprimiArv(arv);
 
     num = numeroNo(arv);
