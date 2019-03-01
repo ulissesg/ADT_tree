@@ -14,13 +14,5 @@ No *alocaNo(){
 
 void desalocaNo(No *no){
 
-    No * no1 = no->esquerda;
-
-    while (no1 != NULL){
-        No * no2 = no1->direita;
-        desalocaNo(no1);
-        no1 = no2;
-    }
-
     free(no);
 }

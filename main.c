@@ -1,18 +1,29 @@
 #include "arvore.h"
+#include "fila.h"
 
 int main() {
-    int num;
+//    int num;
 
-    Arvore *arv = alocaArv();
-    construirArv(arv, 8);
-    construirArv(arv, 7);
-    construirArv(arv, 6);
-    construirArv(arv, 10);
-    imprimiArv(arv);
+//    Arvore *arv = alocaArv();
+//    construirArv(arv);
+//    imprimiArv(arv);
 
-    num = numeroNo(arv);
+//    num = numeroNo(arv);
 
-    printf("\nnumero de nos: %d", num);
-    desalocaArv(arv);
+//    printf("\nnumero de nos: %d", num);
+//   desalocaArv(arv);
+
+criafila();
+enfileira(6);
+enfileira(10);
+
+printf("%d", desenfileira());
+int cont =0;
+
+while (cont < 2){
+    printf(">%d\n", fila[cont]);
+    cont++;
+}
+
     return 0;
 }

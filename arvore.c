@@ -6,14 +6,20 @@
 
 Arvore *alocaArv(){
     Arvore *arv = (Arvore *)malloc(sizeof(Arvore));
-    arv->raiz = alocaNo();
+    arv->raiz = NULL;
     return arv;
 }
 
 void desalocaArv(Arvore *arv){
-    desalocaNo(arv->raiz);
-    free(arv);
+    desalocaArvNo(arv->raiz);
+}
 
+void desalocaArvNo(No *x){
+    if (x != NULL){
+        desalocaArvNo(x->esquerda);
+        desalocaArvNo(x->direita);
+        desalocaNo(x);
+    }
 }
 
 //No *busca(Arvore *a, No *raiz, int *chave) {
@@ -37,11 +43,17 @@ void desalocaArv(Arvore *arv){
 //}
 
 
-void construirArv(Arvore *a, int num){
+void construirArv(Arvore *a){
     Arvore *arv = alocaArv();
-    arv->raiz->chave = num;
-    arv->raiz->direita = a->raiz->esquerda;
-    a->raiz->esquerda = arv;
+    arv->raiz = alocaNo();
+    arv->raiz->direita = alocaNo();
+    arv->raiz->esquerda = alocaNo();
+
+    printf("//\n");
+    scanf("%d:", &arv->raiz->chave);
+    scanf("\n%d", &arv->raiz->esquerda->chave);
+    scanf("\n%d", &arv->raiz->direita->chave);
+
 
 }
 
@@ -57,12 +69,16 @@ void imprimiArv(Arvore *a){
 
 int numeroNo(Arvore *a){
 
-    int num = 0;
-    Arvore *arv;
-    for(arv=a->raiz->esquerda; arv != NULL; arv = arv->raiz->direita){
-        num ++;
-    }
+    return contaNo(a->raiz) ;
 
-    return num;
+}
+
+int contaNo(No *x){
+
+    if (x != NULL){
+        int num = 1;
+        num =+ contaNo(x->esquerda);
+        num =+ contaNo(x->direita);
+    }
 
 }
