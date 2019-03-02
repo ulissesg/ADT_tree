@@ -3,6 +3,7 @@
 //
 
 #include "arvore.h"
+#include "fila/fila.h"
 
 Arvore *alocaArv(){
     Arvore *arv = (Arvore *)malloc(sizeof(Arvore));
@@ -44,26 +45,21 @@ void desalocaArvNo(No *x){
 
 
 void construirArv(Arvore *a){
-    Arvore *arv = alocaArv();
-    arv->raiz = alocaNo();
-    arv->raiz->direita = alocaNo();
-    arv->raiz->esquerda = alocaNo();
+
+    a->raiz = alocaNo();
+    a->raiz->direita = alocaNo();
+    a->raiz->esquerda = alocaNo();
 
     printf("//\n");
-    scanf("%d:", &arv->raiz->chave);
-    scanf("\n%d", &arv->raiz->esquerda->chave);
-    scanf("\n%d", &arv->raiz->direita->chave);
+    scanf("%d:", &a->raiz->chave);
+    scanf("\n%d", &a->raiz->esquerda->chave);
+    scanf("\n%d", &a->raiz->direita->chave);
 
 
 }
 
 void imprimiArv(Arvore *a){
 
-    Arvore *arv;
-    printf(">%d\n", a->raiz->chave);
-    for(arv=a->raiz->esquerda; arv != NULL; arv = arv->raiz->direita){
-        imprimiArv(arv);
-    }
 
 }
 
@@ -74,11 +70,12 @@ int numeroNo(Arvore *a){
 }
 
 int contaNo(No *x){
-
+    int num =1;
     if (x != NULL){
-        int num = 1;
-        num =+ contaNo(x->esquerda);
-        num =+ contaNo(x->direita);
+        num ++;
+        contaNo(x->esquerda);
+        num ++;
+        contaNo(x->direita);
     }
-
+    return num;
 }

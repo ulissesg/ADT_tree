@@ -5,9 +5,9 @@
 #ifndef UNTITLED3_FILA_H
 #define UNTITLED3_FILA_H
 
-#include <stdlib.h>
+#include <stdio.h>
 
-int fila[100], frente, tras, quantos;
+int fila[500], frente, tras, quantos;
 void criafila()
 {
     frente = quantos = 0;
@@ -15,11 +15,11 @@ void criafila()
 }
 int enfileira(int elemento)
 {
-    if (quantos > 99)
+    if (quantos > 499)
         return 0;
     quantos++;
     tras++;
-    if (tras > 99)
+    if (tras > 499)
         tras = 0;
     fila[tras] = elemento;
     return 1;
@@ -32,13 +32,22 @@ int desenfileira()
     aux = fila[frente];
     frente++;
     quantos--;
-    if (frente > 99)
+    if (frente > 499)
         frente = 0;
     return aux;
 }
 int filavazia()
 {
-    return quantos == 0;
+    if (frente <= tras){
+        return 0;
+    }
+    return 1;
+}
+
+void imprimeFila(int num[500]){
+    for(int cont = frente; cont <= tras; cont ++){
+        printf(">%d\n", fila[cont]);
+    }
 }
 
 #endif //UNTITLED3_FILA_H
