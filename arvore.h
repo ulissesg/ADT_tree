@@ -6,6 +6,7 @@
 #define ARVORE_ARVORE_H
 
 #include "no.h"
+#include "lista.h"
 
 struct arvore {
     No *raiz;

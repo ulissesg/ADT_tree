@@ -3,7 +3,7 @@
 //
 
 #include "arvore.h"
-#include "fila/fila.h"
+
 
 Arvore *alocaArv(){
     Arvore *arv = (Arvore *)malloc(sizeof(Arvore));
