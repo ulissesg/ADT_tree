@@ -26,9 +26,9 @@ No *alocaNo(){
 
 void desalocaNo(No *no){
     No *x = no;
-    free(x->chave);
-    free(x->esquerda);
-    free(x->direita);
+//    free(x->chave);
+//    free(x->esquerda);
+//    free(x->direita);
     free(no);
 }
 
@@ -102,7 +102,7 @@ Lista * insereNoLista(Lista *l, No *no){
     novoNo->anterior = l->ultimo;
     l->ultimo =novoNo;
     novoNo->proximo = l->ultimo;
-
+    return l;
 }
 
 void retiraNoLista(Lista * l){
@@ -305,7 +305,7 @@ int main() {
 
     printf("\nnumero de nos: %d", num);
    desalocaArv(arv);
-//
+
 //criafila();
 //enfileira(6);
 //enfileira(10);
@@ -314,7 +314,7 @@ int main() {
 //printf("desenfilera: %d\n", desenfileira());
 //printf("quantos:%d\n", quantos);
 //imprimeFila(fila);
-Lista *x = criaLista();
+//Lista *x = criaLista();
 //printf("%d", filavazia(x));
 
     return 0;
