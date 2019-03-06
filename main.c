@@ -13,6 +13,7 @@ struct no{
 
 No *alocaNo();
 void desalocaNo(No *no);
+No* insereNo(int num);
 
 // arquivos no.c
 
@@ -30,6 +31,12 @@ void desalocaNo(No *no){
 //    free(x->esquerda);
 //    free(x->direita);
     free(no);
+}
+
+No* insereNo(int num){
+    No *x = alocaNo();
+    x->chave = num;
+    return x;
 }
 
 // arquivos noLista.h
@@ -90,18 +97,25 @@ int listavazia(Lista *x);
 
 Lista * criaLista (){
     Lista * list =(Lista*)malloc(sizeof(Lista));
-    list->ultimo = list->cabeca;
-    list->cabeca = list->ultimo;
     return list;
 }
 
 Lista * insereNoLista(Lista *l, No *no){
-    noLista * novoNo = alocaNolista();
-    novoNo->dado =no;
-    l->ultimo->proximo =novoNo; //  talvez seja: l->ultimo->anterior->proximo
-    novoNo->anterior = l->ultimo;
-    l->ultimo =novoNo;
-    novoNo->proximo = l->ultimo;
+    if (listavazia(l) == 0){
+        noLista * x = alocaNolista();
+        x->dado = no;
+        l->cabeca = no;
+        l->ultimo = no;
+    }else{
+        noLista * novoNo = alocaNolista();
+        novoNo->dado =no;
+        l->ultimo->anterior->proximo =novoNo; //  talvez seja: l->ultimo->anterior->proximo
+        novoNo->anterior = l->ultimo->anterior;
+        l->ultimo =novoNo;
+        novoNo->proximo = l->ultimo;
+    }
+
+
     return l;
 }
 
@@ -123,7 +137,7 @@ No* consultaInicioLista(Lista *x) {
 }
 
 int listavazia(Lista *x){
-    if (x->cabeca != x->ultimo){
+    if (x->cabeca == NULL){
         return 0;
     }
     else return 1;
@@ -141,11 +155,11 @@ Fila * alocafila();
 
 void desalocafila(Fila *x);
 
-void insereNoFila(Fila *x, No *no);
+Fila * insereNoFila(Fila *x, No *no);
 
 void retiraNoFila(Fila *x);
 
-No *consultaInicioFila(Fila *x);
+No * consultaInicioFila(Fila *x);
 
 int filaVazia(Fila *x);
 
@@ -153,7 +167,7 @@ int filaVazia(Fila *x);
 
 Fila * alocafila(){
     Fila * x =(Fila*)malloc(sizeof(Fila));
-    x->filaNo = alocaNolista();
+    x->filaNo = criaLista();
     return x;
 }
 
@@ -165,8 +179,8 @@ void desalocafila(Fila *x){
     desalocaLista(x->filaNo);
 }
 
-void insereNoFila(Fila *x, No *no){
-    insereNoLista(x->filaNo, no);
+Fila * insereNoFila(Fila *x, No *no){
+    return insereNoLista(x->filaNo, no);
 }
 
 void retiraNoFila(Fila *x){
@@ -174,7 +188,7 @@ void retiraNoFila(Fila *x){
 }
 
 No *consultaInicioFila(Fila *x){
-    return consultaInicioLista(x->filaNo);
+    return x->filaNo->cabeca;
 }
 
 int filaVazia(Fila *x){
@@ -248,22 +262,31 @@ void desalocaArvNo(No *x){
 
 void construirArv(Arvore *a){
 
+//    int num1;
+//    int num2;
+//    int num3;
+
     a->raiz = alocaNo();
     a->raiz->direita = alocaNo();
     a->raiz->esquerda = alocaNo();
 
     printf("//\n");
-    scanf("%d:", &a->raiz->chave);
-    scanf("\n%d", &a->raiz->esquerda->chave);
-    scanf("\n%d", &a->raiz->direita->chave);
 
+    scanf("%d:", &a->raiz->chave);
+//    a->raiz = insereNo(num1);
+
+    scanf("\n%d", &a->raiz->direita->chave);
+//    a->raiz->esquerda = insereNo(num2);
+
+    scanf("\n%d", &a->raiz->esquerda->chave);
+//    a->raiz->direita = insereNo(num3);
 
 }
 
 void imprimiArv(Arvore *a){
     Fila *aux =  alocafila();
     insereNoFila(aux, a->raiz);
-    while(filaVazia(aux) != 1){
+    while(filaVazia(aux) == 1){
         No *noAux = consultaInicioFila(aux);
         insereNoFila(aux, noAux->esquerda);
         insereNoFila(aux, noAux->direita);
