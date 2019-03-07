@@ -5,7 +5,7 @@
 #ifndef UNTITLED3_LISTA_H
 #define UNTITLED3_LISTA_H
 
-#include "noLista.h"
+#include "../nos/noLista.h"
 
 typedef struct lista Lista;
 

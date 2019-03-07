@@ -12,18 +12,6 @@ int main() {
     printf("\nnumero de nos: %d", num);
    desalocaArv(arv);
 
-//criafila();
-//enfileira(6);
-//enfileira(10);
-//enfileira(18);
-//
-//printf("desenfilera: %d\n", desenfileira());
-//printf("quantos:%d\n", quantos);
-//imprimeFila(fila);
-//Lista *x = criaLista();
-//printf("%d", filavazia(x));
-
-
 //Fila *aux = alocafila();
 //No *x = alocaNo();
 //No *y = alocaNo();

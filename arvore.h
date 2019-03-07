@@ -5,8 +5,8 @@
 #ifndef ARVORE_ARVORE_H
 #define ARVORE_ARVORE_H
 
-#include "no.h"
-#include "lista.h"
+#include "nos/no.h"
+#include "fila/lista.h"
 
 struct arvore {
     No *raiz;
