@@ -3,7 +3,6 @@
 //
 
 #include "arvore.h"
-#include "fila/fila.h"
 
 Arvore *alocaArv(){
     Arvore *arv = (Arvore *)malloc(sizeof(Arvore));
@@ -57,13 +56,10 @@ void construirArv(Arvore *a){
     printf("//\n");
 
     scanf("%d:", &a->raiz->chave);
-//    a->raiz = insereNo(num1);
 
     scanf("\n%d", &a->raiz->direita->chave);
-//    a->raiz->esquerda = insereNo(num2);
 
     scanf("\n%d", &a->raiz->esquerda->chave);
-//    a->raiz->direita = insereNo(num3);
 
 }
 

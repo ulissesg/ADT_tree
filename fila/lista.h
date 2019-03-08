@@ -12,7 +12,6 @@ typedef struct lista Lista;
 struct lista{
     noLista * cabeca;
     noLista * ultimo;
-
 };
 
 Lista * criaLista ();

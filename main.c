@@ -1,36 +1,27 @@
 #include "arvore.h"
+#include "arvore.c"
+#include "fila/fila.h"
+#include "fila/fila.cpp"
+#include "fila/lista.h"
+#include "fila/lista.cpp"
+#include "nos/noLista.h"
+#include "nos/noLista.cpp"
+#include "nos/no.h"
+#include "nos/no.c"
+
 
 int main() {
-    int num;
+
 
     Arvore *arv = alocaArv();
     construirArv(arv);
     imprimiArv(arv);
 
+    int num;
     num = numeroNo(arv);
-
     printf("\nnumero de nos: %d", num);
-   desalocaArv(arv);
 
-//Fila *aux = alocafila();
-//No *x = alocaNo();
-//No *y = alocaNo();
-//No *z = alocaNo();
-//
-//x->chave = 1;
-//y->chave = 2;
-//z->chave = 3;
-//x->direita = z;
-//x->esquerda = y;
-//
-//
-//insereNoFila(aux, x);
-//insereNoFila(aux , y);
-//insereNoFila(aux, z);
-//retiraNoFila(aux);
-
-
-
+    desalocaArv(arv);
 
     return 0;
 }

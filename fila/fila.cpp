@@ -14,7 +14,6 @@ void desalocafila(Fila *x){
     while(x->listaNo->ultimo != x->listaNo->cabeca){
         retiraNoLista(x->listaNo);
     }
-
     desalocaLista(x->listaNo);
 }
 

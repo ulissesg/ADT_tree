@@ -4,6 +4,7 @@
 
 #include "lista.h"
 
+
 Lista * criaLista (){
     Lista * list =(Lista*)malloc(sizeof(Lista));
     list->cabeca = alocaNolista();
