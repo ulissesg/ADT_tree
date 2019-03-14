@@ -63,6 +63,49 @@ void construirArv(Arvore *a){
 
 }
 
+void insereVerifica(Arvore *a, int num){
+    if (a->raiz == NULL){
+        a->raiz = alocaNo();
+        a->raiz->chave = num;
+    }
+    else {
+        insereVerificaAux(a->raiz, num);
+    }
+}
+
+void insereVerificaAux(No *x, int num){
+    if (verificaExistente == 0){
+        if (num > x->chave && x->direita == NULL){
+            x->direita = alocaNo();
+            x->direita->chave = num;
+        }
+        else if(num < x->chave && x->esquerda == NULL){
+            x->esquerda = alocaNo();
+            x->esquerda->chave = num;
+        }
+        else if(num > x->chave){
+            insereVerificaAux(x->direita, num);
+        }
+        else if(num < x->chave){
+            insereVerificaAux(x->esquerda, num);
+        }
+    }
+
+}
+
+int verificaExistente(No *x, int num){
+    if (x != NULL){
+        if (x->chave != num){
+            verificaExistente(x->esquerda, num);
+            verificaExistente(x->direita, num);
+            return 0;
+        }
+        else{
+            return 1;
+        }
+    }
+}
+
 void imprimiArv(Arvore *a){
     Fila *aux =  alocafila();
     insereNoFila(aux, a->raiz);

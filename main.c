@@ -14,7 +14,11 @@ int main() {
 
 
     Arvore *arv = alocaArv();
-    construirArv(arv);
+//    construirArv(arv);
+    insereVerifica(arv, 6);
+
+    insereVerifica(arv, 5);
+    insereVerifica(arv, 6);
     imprimiArv(arv);
 
     int num;
