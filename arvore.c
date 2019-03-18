@@ -118,18 +118,15 @@ void imprimiArv(Arvore *a){
 }
 
 int numeroNo(Arvore *a){
-
-    return contaNo(a->raiz) ;
+    return contaNo(a->raiz);
 
 }
 
 int contaNo(No *x){
-    int num =1;
+    int num = 1;
     if (x != NULL){
-        num ++;
-        contaNo(x->esquerda);
-        num ++;
-        contaNo(x->direita);
+        num += contaNo(x->esquerda);
+        num += contaNo(x->direita);
     }
     return num;
 }
