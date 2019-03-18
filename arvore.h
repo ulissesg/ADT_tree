@@ -23,11 +23,11 @@ void desalocaArvNo(No *no);
 
 void construirArv(Arvore *a);
 
-void insereVerifica(Arvore *a, int num);
+int verificaExistente(No *x, int num);
 
 void insereVerificaAux(No *x, int num);
 
-int verificaExistente(No *x, int num);
+void insereVerifica(Arvore *a, int num);
 
 void imprimiArv(Arvore *a);
 
