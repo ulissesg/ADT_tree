@@ -30,8 +30,8 @@ int main() {
 
 
 
-
-    imprimiArv(arv);
+    imprimeArvVisual(arv);
+//    imprimiArv(arv);
 
     int num;
     num = numeroNo(arv);

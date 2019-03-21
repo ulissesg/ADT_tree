@@ -31,6 +31,10 @@ void insereVerifica(Arvore *a, int num);
 
 void imprimiArv(Arvore *a);
 
+void imprimeArvVisual (Arvore *a);
+
+void imprimeArvVisualNo(No *no);
+
 int numeroNo(Arvore *a);
 
 int contaNo(No *no);

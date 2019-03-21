@@ -117,6 +117,27 @@ void imprimiArv(Arvore *a){
 
 }
 
+void imprimeArvVisualNo(No* no){
+
+    if (no != NULL) {
+        printf("%d", no->chave);
+        if (no->esquerda != NULL)  printf("(");
+        imprimeArvVisualNo(no->esquerda);
+        if (no->esquerda != NULL)       printf(")");
+        if (no->direita != NULL)    printf("(");
+
+        imprimeArvVisualNo(no->direita);
+        if (no->direita != NULL) printf(")");
+
+    }
+}
+
+void imprimeArvVisual (Arvore *a){
+    printf("(");
+    imprimeArvVisualNo(a->raiz);
+    printf(")");
+}
+
 int numeroNo(Arvore *a){
     return contaNo(a->raiz);
 
