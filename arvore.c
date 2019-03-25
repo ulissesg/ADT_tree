@@ -43,23 +43,61 @@ void desalocaArvNo(No *x){
 //}
 
 
-void construirArv(Arvore *a){
+//void construirArv(Arvore *a){
+//
+////    int num1;
+////    int num2;
+////    int num3;
+//
+//    a->raiz = alocaNo();
+//    a->raiz->direita = alocaNo();
+//    a->raiz->esquerda = alocaNo();
+//
+//    printf("//\n");
+//
+//    scanf("%d:", &a->raiz->chave);
+//
+//    scanf("\n%d", &a->raiz->direita->chave);
+//
+//    scanf("\n%d", &a->raiz->esquerda->chave);
+//
+//}
 
-//    int num1;
-//    int num2;
-//    int num3;
+No * contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No *pai, int cont){
+
+    if (posicao < size){
+        if (arvoreString[posicao] == '('){
+            no->esquerda = alocaNo();
+            if (cont == 0){
+                no->esquerda = contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, no, cont + 1);
+            }
+            else {
+                no->esquerda = contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, pai, cont + 1);
+            }
+        }
+        else if ((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0) {
+            no->chave = (arvoreString[posicao] - '0');
+            no = contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, cont);
+        }
+        else if (arvoreString[posicao] == ')'){
+            if (cont == 0){
+
+            }
+            pai->direita = alocaNo();
+            no->direita = contruiArvStringNo(no->direita, arvoreString, size, posicao + 1, pai, cont - 1 );
+
+        }
+    }
+    return no;
+}
+
+Arvore* construiArvString(Arvore *a, char arvoreString[50], int size, int posicao){
 
     a->raiz = alocaNo();
-    a->raiz->direita = alocaNo();
-    a->raiz->esquerda = alocaNo();
+    a->raiz->chave = arvoreString[1] - '0';
 
-    printf("//\n");
+        a->raiz = contruiArvStringNo(a->raiz, arvoreString, size, posicao +2, a->raiz, 0);
 
-    scanf("%d:", &a->raiz->chave);
-
-    scanf("\n%d", &a->raiz->direita->chave);
-
-    scanf("\n%d", &a->raiz->esquerda->chave);
 
 }
 
@@ -120,22 +158,19 @@ void imprimiArv(Arvore *a){
 void imprimeArvVisualNo(No* no){
 
     if (no != NULL) {
+        printf("(");
         printf("%d", no->chave);
-        if (no->esquerda != NULL)  printf("(");
         imprimeArvVisualNo(no->esquerda);
-        if (no->esquerda != NULL)       printf(")");
-        if (no->direita != NULL)    printf("(");
-
         imprimeArvVisualNo(no->direita);
-        if (no->direita != NULL) printf(")");
+        printf(")");
 
     }
 }
 
 void imprimeArvVisual (Arvore *a){
-    printf("(");
+
     imprimeArvVisualNo(a->raiz);
-    printf(")");
+
 }
 
 int numeroNo(Arvore *a){
@@ -146,8 +181,14 @@ int numeroNo(Arvore *a){
 int contaNo(No *x){
     int num = 1;
     if (x != NULL){
-        num += contaNo(x->esquerda);
-        num += contaNo(x->direita);
+        if (x->esquerda != NULL) {
+            num += contaNo(x->esquerda);
+        }
+
+        if (x->direita != NULL) {
+            num += contaNo(x->direita);
+        }
+
     }
     return num;
 }

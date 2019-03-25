@@ -8,6 +8,7 @@
 #include "nos/noLista.cpp"
 #include "nos/no.h"
 #include "nos/no.c"
+#include <string.h>
 
 
 int main() {
@@ -15,29 +16,33 @@ int main() {
 
     Arvore *arv = alocaArv();
 //    construirArv(arv);
-    insereVerifica(arv, 8);
-    insereVerifica(arv, 3);
-    insereVerifica(arv, 5);
-    insereVerifica(arv, 2);
-    insereVerifica(arv, 4);
-    insereVerifica(arv, 1);
-    insereVerifica(arv, 22);
-    insereVerifica(arv, 9);
-    insereVerifica(arv, 10);
-    insereVerifica(arv, 11);
-    insereVerifica(arv, 56);
-    insereVerifica(arv, 96);
 
+//    insereVerifica(arv, 8);
+//    insereVerifica(arv, 3);
+//    insereVerifica(arv, 5);
+//    insereVerifica(arv, 2);
+//    insereVerifica(arv, 4);
+//    insereVerifica(arv, 1);
+//    insereVerifica(arv, 22);
+//    insereVerifica(arv, 9);
+//    insereVerifica(arv, 10);
+//    insereVerifica(arv, 11);
+//    insereVerifica(arv, 56);
+//    insereVerifica(arv, 96);
+//
+char string[50];
 
+scanf("%s", &string);
+int n = strlen(string);
+construiArvString(arv, string, n, 0);
 
     imprimeArvVisual(arv);
 //    imprimiArv(arv);
-
-    int num;
-    num = numeroNo(arv);
-    num = (num -1) / 2;
-    printf("\nnumero de nos: %d", num);
-
+//
+//    int num;
+//    num = numeroNo(arv);
+//    printf("\nnumero de nos: %d", num);
+//
     desalocaArv(arv);
 
     return 0;

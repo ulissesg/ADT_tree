@@ -21,7 +21,11 @@ void desalocaArvNo(No *no);
 
 //No *busca(Arvore *a, No *r, int *chave);
 
-void construirArv(Arvore *a);
+//void construirArv(Arvore *a);
+
+Arvore* construiArvString(Arvore *a, char arvoreString[50], int size, int posicao);
+
+No * contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No* pai, int cont);
 
 int verificaExistente(No *x, int num);
 
