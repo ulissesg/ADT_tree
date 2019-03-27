@@ -63,25 +63,25 @@ void desalocaArvNo(No *x){
 //
 //}
 
-No * contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No *pai, int cont){
+No * contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No *pai, No *raiz){
 
     if (posicao < size){
         if (arvoreString[posicao] == '('){
             if (arvoreString[posicao -1] == ')' || arvoreString[posicao -1] == ' '){
                 no->direita = alocaNo();
-                no->direita = contruiArvStringNo(no->direita, arvoreString, size, posicao + 1, no, cont - 1);
+                no->direita = contruiArvStringNo(no->direita, arvoreString, size, posicao + 1, no, raiz);
             }
             else{
                 no->esquerda = alocaNo();
-                no->esquerda = contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, no, cont + 1);
+                no->esquerda = contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, no, raiz);
             }
         }
         else if ((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0) {
             no->chave = (arvoreString[posicao] - '0');
-            return contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, cont);
+            return contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, raiz);
         }
         else if (arvoreString[posicao] == ')'){
-            return contruiArvStringNo(pai, arvoreString, size, posicao + 1, no, cont - 1);
+            return contruiArvStringNo(pai, arvoreString, size, posicao + 1, pai, raiz);
         }
     }
     return no;
