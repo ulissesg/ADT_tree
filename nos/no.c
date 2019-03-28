@@ -6,7 +6,7 @@
 
 No *alocaNo(){
     No *no = (No*)malloc(sizeof(No));
-    no->chave = NULL;
+    no->chave = ' ';
     no->esquerda = NULL;
     no->direita = NULL;
     return no;
@@ -14,9 +14,6 @@ No *alocaNo(){
 
 void desalocaNo(No *no){
     No *x = no;
-//    free(x->chave);
-//    free(x->esquerda);
-//    free(x->direita);
     free(no);
 }
 

@@ -29,24 +29,25 @@ int main() {
     insereVerifica(arv, 11);
     insereVerifica(arv, 56);
     insereVerifica(arv, 96);
-//
+
 
 //char string[50];
-//
 //scanf("%s", &string);
 //int n = strlen(string);
 
 //construiArvString(arv, string, n, 0);
+
 //    No* no = buscaNo(arv, 56);
 //    printf("\nno busca: %d\n", no->chave);
 //
 //    No* x = buscaNoPai(arv, 56);
 //    printf("\nno busca pai: %d\n", x->chave);
 
-    removeNo(arv, 11);
+//    removeNo(arv, 5);
+//    removeNo(arv, 56);
 
-    imprimeArvVisual(arv);
-//    imprimiArv(arv);
+//    imprimeArvVisual(arv);
+    imprimiArv(arv);
 //
 //    int num;
 //    num = numeroNo(arv);

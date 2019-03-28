@@ -142,7 +142,7 @@ No* buscaNoPai(Arvore *a, int num){
 
 No* buscaNoPaiAux(No *no, int num){
     if (no != NULL){
-        if (no->direita->chave == num || no->esquerda->chave == num){
+        if (no->direita != NULL && no->direita->chave == num || no->esquerda != NULL && no->esquerda->chave == num){
             return no;
         }
         else if (num < no->chave){
@@ -181,7 +181,16 @@ void removeNo(Arvore *a, int num){
 void removeNoAux(No* x, int num){
     No *no = buscaNoAux(x, num);
     No *pai = buscaNoPaiAux(x, num);
-    if (no->direita == NULL || no->esquerda == NULL){
+    if(no->direita == NULL && no->esquerda == NULL){
+        if (pai->esquerda == no){
+            pai->esquerda = NULL;
+        }
+        else if (pai->direita == no){
+            pai->direita = NULL;
+        }
+        desalocaNo(no);
+    }
+    else if (no->direita == NULL || no->esquerda == NULL){
         if (no->direita != NULL){
             if (pai->direita == no){
                 pai->direita = no->direita;
@@ -206,15 +215,7 @@ void removeNoAux(No* x, int num){
         }
         desalocaNo(no);
     }
-    else if(no->direita == NULL || no->esquerda == NULL){
-        if (pai->esquerda == no){
-            pai->esquerda == NULL;
-        }
-        else if (pai->direita == no){
-            pai->direita == NULL;
-        }
-        desalocaNo(no);
-    }
+
 }
 
 void imprimiArv(Arvore *a){
