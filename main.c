@@ -17,24 +17,33 @@ int main() {
     Arvore *arv = alocaArv();
 //    construirArv(arv);
 
-//    insereVerifica(arv, 8);
-//    insereVerifica(arv, 3);
-//    insereVerifica(arv, 5);
-//    insereVerifica(arv, 2);
-//    insereVerifica(arv, 4);
-//    insereVerifica(arv, 1);
-//    insereVerifica(arv, 22);
-//    insereVerifica(arv, 9);
-//    insereVerifica(arv, 10);
-//    insereVerifica(arv, 11);
-//    insereVerifica(arv, 56);
-//    insereVerifica(arv, 96);
+    insereVerifica(arv, 8);
+    insereVerifica(arv, 3);
+    insereVerifica(arv, 5);
+    insereVerifica(arv, 2);
+    insereVerifica(arv, 4);
+    insereVerifica(arv, 1);
+    insereVerifica(arv, 22);
+    insereVerifica(arv, 9);
+    insereVerifica(arv, 10);
+    insereVerifica(arv, 11);
+    insereVerifica(arv, 56);
+    insereVerifica(arv, 96);
 //
-char string[50];
 
-scanf("%s", &string);
-int n = strlen(string);
-construiArvString(arv, string, n, 0);
+//char string[50];
+//
+//scanf("%s", &string);
+//int n = strlen(string);
+
+//construiArvString(arv, string, n, 0);
+//    No* no = buscaNo(arv, 56);
+//    printf("\nno busca: %d\n", no->chave);
+//
+//    No* x = buscaNoPai(arv, 56);
+//    printf("\nno busca pai: %d\n", x->chave);
+
+    removeNo(arv, 11);
 
     imprimeArvVisual(arv);
 //    imprimiArv(arv);

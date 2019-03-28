@@ -3,6 +3,8 @@
 //
 
 #include "arvore.h"
+#include "string.h"
+#include "ctype.h"
 
 Arvore *alocaArv(){
     Arvore *arv = (Arvore *)malloc(sizeof(Arvore));
@@ -63,38 +65,34 @@ void desalocaArvNo(No *x){
 //
 //}
 
-No * contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No *pai, No *raiz){
+void contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No *pai, No *raiz){
 
     if (posicao < size){
         if (arvoreString[posicao] == '('){
             if (arvoreString[posicao -1] == ')' || arvoreString[posicao -1] == ' '){
                 no->direita = alocaNo();
-                no->direita = contruiArvStringNo(no->direita, arvoreString, size, posicao + 1, no, raiz);
+                contruiArvStringNo(no->direita, arvoreString, size, posicao + 1, no, raiz);
             }
             else{
                 no->esquerda = alocaNo();
-                no->esquerda = contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, no, raiz);
+                contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, no, raiz);
             }
         }
         else if ((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0) {
             no->chave = (arvoreString[posicao] - '0');
-            return contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, raiz);
+            contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, raiz);
         }
         else if (arvoreString[posicao] == ')'){
-            return contruiArvStringNo(pai, arvoreString, size, posicao + 1, pai, raiz);
+            contruiArvStringNo(pai, arvoreString, size, posicao + 1, pai, raiz);
         }
     }
-    return no;
 }
 
 Arvore* construiArvString(Arvore *a, char arvoreString[50], int size, int posicao){
 
     a->raiz = alocaNo();
     a->raiz->chave = arvoreString[1] - '0';
-
-        a->raiz = contruiArvStringNo(a->raiz, arvoreString, size, posicao +2, a->raiz, 0);
-
-
+    contruiArvStringNo(a->raiz, arvoreString, size, posicao +2, a->raiz, 0);
 }
 
 int verificaExistente(No *x, int num){
@@ -135,6 +133,87 @@ void insereVerifica(Arvore *a, int num){
     }
     else {
         insereVerificaAux(a->raiz, num);
+    }
+}
+
+No* buscaNoPai(Arvore *a, int num){
+    buscaNoPaiAux(a->raiz, num);
+}
+
+No* buscaNoPaiAux(No *no, int num){
+    if (no != NULL){
+        if (no->direita->chave == num || no->esquerda->chave == num){
+            return no;
+        }
+        else if (num < no->chave){
+            return buscaNoPaiAux(no->esquerda, num);
+        }
+        else if (num > no->chave){
+            return buscaNoPaiAux(no->direita, num);
+        }
+    }
+    printf("\n numero nao encontrado !\n");
+}
+
+No *buscaNo(Arvore *a, int num){
+    buscaNoAux(a->raiz, num);
+}
+
+No* buscaNoAux(No* no, int num){
+    if (no != NULL){
+        if (no->chave == num){
+            return no;
+        }
+        else if (no->chave > num){
+            return buscaNoAux(no->esquerda, num);
+        }
+        else if (no->chave < num){
+            return buscaNoAux(no->direita, num);
+        }
+    }
+    printf("\n numero nao encontrado !\n");
+}
+
+void removeNo(Arvore *a, int num){
+    removeNoAux(a->raiz, num);
+}
+
+void removeNoAux(No* x, int num){
+    No *no = buscaNoAux(x, num);
+    No *pai = buscaNoPaiAux(x, num);
+    if (no->direita == NULL || no->esquerda == NULL){
+        if (no->direita != NULL){
+            if (pai->direita == no){
+                pai->direita = no->direita;
+            }
+            else if (pai->esquerda == no){
+                pai->esquerda = no->direita;
+            }
+        }
+        else if (no->esquerda != NULL){
+            if (pai->esquerda == no){
+                pai->esquerda = no->esquerda;
+            }
+            else if (pai->direita == no){
+                pai->direita = no->esquerda;
+            }
+        }
+        if (pai->esquerda->chave == num){
+            pai->esquerda = NULL;
+        }
+        else if (pai->direita->chave == num){
+            pai->direita = NULL;
+        }
+        desalocaNo(no);
+    }
+    else if(no->direita == NULL || no->esquerda == NULL){
+        if (pai->esquerda == no){
+            pai->esquerda == NULL;
+        }
+        else if (pai->direita == no){
+            pai->direita == NULL;
+        }
+        desalocaNo(no);
     }
 }
 

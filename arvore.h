@@ -25,13 +25,25 @@ void desalocaArvNo(No *no);
 
 Arvore* construiArvString(Arvore *a, char arvoreString[50], int size, int posicao);
 
-No * contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No* pai, No *raiz);
+void contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No* pai, No *raiz);
 
 int verificaExistente(No *x, int num);
 
 void insereVerificaAux(No *x, int num);
 
 void insereVerifica(Arvore *a, int num);
+
+No *buscaNo(Arvore *a, int num);
+
+No* buscaNoAux(No* no, int num);
+
+No* buscaNoPai(Arvore *a, int num);
+
+No* buscaNoPaiAux(No *no, int num);
+
+void removeNo(Arvore *a, int num);
+
+void removeNoAux(No* x, int num);
 
 void imprimiArv(Arvore *a);
 
