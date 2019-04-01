@@ -46,8 +46,11 @@ void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, N
 
     if (posicao < size){
         if (arvoreString[posicao] == '('){
-            if (arvoreString[posicao -1] == ')' || arvoreString[posicao -1] == ' '){
+            if (arvoreString[posicao -1] == ')' || arvoreString[posicao+1] == '/'){
                 no->direita = alocaNo();
+                if (arvoreString[posicao+1] == '/'){
+                    contruiArvStringNo(no, arvoreString, size, posicao + 3, buscaNoPaiAux(raiz, pai->chave), raiz);
+                }
                 contruiArvStringNo(no->direita, arvoreString, size, posicao + 1, no, raiz);
             }
             else{
@@ -55,16 +58,16 @@ void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, N
                 contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, no, raiz);
             }
         }
-        else if ((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0) {
+        else if (((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0)) {
             no->chave = (arvoreString[posicao] - '0');
             contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, raiz);
         }
         else if (arvoreString[posicao] == ')'){
 
-            if (arvoreString[posicao+1] == '('){
+            if ((arvoreString[posicao+1] == '(') ||(arvoreString[posicao+1] == ')' && pai->direita == NULL)){
                 contruiArvStringNo(pai, arvoreString, size, posicao + 1, buscaNoPaiAux(raiz, pai->chave), raiz);
             }
-            else if (arvoreString[posicao+1] == ')'){
+            else if (arvoreString[posicao+1] == ')' && pai->direita != NULL){
                 pai = buscaNoPaiAux(raiz, pai->chave);
                 No* avo = buscaNoPaiAux(raiz, pai->chave);
                 contruiArvStringNo(pai, arvoreString, size, posicao + 1, avo, raiz);
