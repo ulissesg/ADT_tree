@@ -6,7 +6,7 @@
 
 No *alocaNo(){
     No *no = (No*)malloc(sizeof(No));
-    no->chave = ' ';
+    no->chave = NULL;
     no->esquerda = NULL;
     no->direita = NULL;
     return no;

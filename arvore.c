@@ -3,8 +3,6 @@
 //
 
 #include "arvore.h"
-#include "string.h"
-#include "ctype.h"
 
 Arvore *alocaArv(){
     Arvore *arv = (Arvore *)malloc(sizeof(Arvore));
@@ -23,27 +21,6 @@ void desalocaArvNo(No *x){
         desalocaNo(x);
     }
 }
-
-//No *busca(Arvore *a, No *raiz, int *chave) {
-//
-//    if (a->raiz->direita != NULL && a->raiz->esquerda != NULL) {
-//
-//        if (a->raiz->chave == chave) {
-//
-//            return a->raiz;
-//
-//        } else if (a->raiz->esquerda->chave != chave) {
-//
-//            busca(a, a->raiz->esquerda, chave);
-//
-//        } else {
-//
-//            busca(a, a->raiz->direita, chave);
-//
-//        }
-//    }
-//}
-
 
 //void construirArv(Arvore *a){
 //
@@ -65,7 +42,7 @@ void desalocaArvNo(No *x){
 //
 //}
 
-void contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No *pai, No *raiz){
+void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, No *pai, No *raiz){
 
     if (posicao < size){
         if (arvoreString[posicao] == '('){
@@ -83,7 +60,15 @@ void contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No
             contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, raiz);
         }
         else if (arvoreString[posicao] == ')'){
-            contruiArvStringNo(pai, arvoreString, size, posicao + 1, pai, raiz);
+
+            if (arvoreString[posicao+1] == '('){
+                contruiArvStringNo(pai, arvoreString, size, posicao + 1, buscaNoPaiAux(raiz, pai->chave), raiz);
+            }
+            else if (arvoreString[posicao+1] == ')'){
+                pai = buscaNoPaiAux(raiz, pai->chave);
+                No* avo = buscaNoPaiAux(raiz, pai->chave);
+                contruiArvStringNo(pai, arvoreString, size, posicao + 1, avo, raiz);
+            }
         }
     }
 }
@@ -92,7 +77,7 @@ Arvore* construiArvString(Arvore *a, char arvoreString[50], int size, int posica
 
     a->raiz = alocaNo();
     a->raiz->chave = arvoreString[1] - '0';
-    contruiArvStringNo(a->raiz, arvoreString, size, posicao +2, a->raiz, 0);
+    contruiArvStringNo(a->raiz, arvoreString, size, posicao +2, a->raiz, a->raiz);
 }
 
 int verificaExistente(No *x, int num){
@@ -142,17 +127,23 @@ No* buscaNoPai(Arvore *a, int num){
 
 No* buscaNoPaiAux(No *no, int num){
     if (no != NULL){
-        if (no->direita != NULL && no->direita->chave == num || no->esquerda != NULL && no->esquerda->chave == num){
+        if (no->chave != num){
+            if ((NULL != no->direita && no->direita->chave == num) || (no->esquerda != NULL && no->esquerda->chave == num)) {
+                return no;
+            } else {
+                if (num < no->chave) {
+                    return buscaNoPaiAux(no->esquerda, num);
+                } else if (num > no->chave) {
+                    return buscaNoPaiAux(no->direita, num);
+                }
+            }
+        }
+        else if (no->chave == num){
             return no;
         }
-        else if (num < no->chave){
-            return buscaNoPaiAux(no->esquerda, num);
-        }
-        else if (num > no->chave){
-            return buscaNoPaiAux(no->direita, num);
-        }
+
     }
-    printf("\n numero nao encontrado !\n");
+    return no;
 }
 
 No *buscaNo(Arvore *a, int num){
