@@ -43,7 +43,7 @@ void desalocaArvNo(No *x){
 //
 //}
 
-void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, No *pai, No *raiz){
+void contruiArvStringNo( No *no, char arvoreString[100], int size, int posicao, No *pai, No *raiz){
 
     if (posicao < size){
         if (arvoreString[posicao] == '('){
@@ -78,7 +78,7 @@ void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, N
     }
 }
 
-void construiArvString(Arvore *a, char arvoreString[50], int size, int posicao){
+void construiArvString(Arvore *a, char arvoreString[100], int size, int posicao){
 
     a->raiz = alocaNo();
     int numDigitos = verificaNumDigitos(arvoreString, posicao);
@@ -86,7 +86,7 @@ void construiArvString(Arvore *a, char arvoreString[50], int size, int posicao){
     contruiArvStringNo(a->raiz, arvoreString, size, posicao +numDigitos+1, a->raiz, a->raiz);
 }
 
-int verificaNumDigitos(char arvoreString[50], int posicao){
+int verificaNumDigitos(char arvoreString[100], int posicao){
     int cont = 0;
     while ((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0){
         cont++;
@@ -95,7 +95,7 @@ int verificaNumDigitos(char arvoreString[50], int posicao){
     return cont;
 }
 
-int digitosString(char arvoreString[50], int posicao, int numDigitos, int size){
+int digitosString(char arvoreString[100], int posicao, int numDigitos, int size){
     char digitos[numDigitos];
     memcpy(digitos, &arvoreString[posicao], size);
     return atoi(digitos);
@@ -227,7 +227,31 @@ void removeNoAux(No* x, int num){
         }
         desalocaNo(no);
     }
+    else if (no->direita != NULL && no->esquerda != NULL){
+        No* sucessor = menorSucessor(no);
+        No* paiSucessor = buscaNoPaiAux(x, sucessor->chave);
+        if (pai->direita == no){
+            paiSucessor->direita->esquerda = NULL;
+        }
+        else{
+            paiSucessor->esquerda = NULL;
+        }
+        no->chave = sucessor->chave;
+        if (sucessor->direita != NULL){
+            paiSucessor->direita = sucessor->direita;
+            sucessor->direita->direita = NULL;
+        }
+        desalocaNo(sucessor);
+    }
 
+}
+
+No * menorSucessor(No * x){
+    x = x->direita;
+    while (x->esquerda != NULL){
+        x = x->esquerda;
+    }
+    return x;
 }
 
 void imprimiArv(Arvore *a){

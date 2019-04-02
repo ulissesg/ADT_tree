@@ -23,13 +23,13 @@ void desalocaArvNo(No *no);
 
 //void construirArv(Arvore *a);
 
-void construiArvString(Arvore *a, char arvoreString[50], int size, int posicao);
+void construiArvString(Arvore *a, char arvoreString[100], int size, int posicao);
 
-void contruiArvStringNo(No *no, char arvoreString[50], int size, int posicao, No* pai, No *raiz);
+void contruiArvStringNo(No *no, char arvoreString[100], int size, int posicao, No* pai, No *raiz);
 
-int verificaNumDigitos(char arvoreString[50], int posicao);
+int verificaNumDigitos(char arvoreString[100], int posicao);
 
-int digitosString(char arvoreString[50], int posicao, int numDigitos, int size);
+int digitosString(char arvoreString[100], int posicao, int numDigitos, int size);
 
 int verificaExistente(No *x, int num);
 
@@ -48,6 +48,8 @@ No* buscaNoPaiAux(No *no, int num);
 void removeNo(Arvore *a, int num);
 
 void removeNoAux(No* x, int num);
+
+No * menorSucessor(No * x);
 
 void imprimiArv(Arvore *a);
 
