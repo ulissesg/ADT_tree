@@ -3,6 +3,7 @@
 //
 
 #include "arvore.h"
+#include "string.h"
 
 Arvore *alocaArv(){
     Arvore *arv = (Arvore *)malloc(sizeof(Arvore));
@@ -46,7 +47,7 @@ void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, N
 
     if (posicao < size){
         if (arvoreString[posicao] == '('){
-            if (arvoreString[posicao -1] == ')' || arvoreString[posicao+1] == '/'){
+            if (arvoreString[posicao-1] == ')' || arvoreString[posicao+1] == '/'){
                 no->direita = alocaNo();
                 if (arvoreString[posicao+1] == '/'){
                     contruiArvStringNo(no, arvoreString, size, posicao + 3, buscaNoPaiAux(raiz, pai->chave), raiz);
@@ -58,9 +59,10 @@ void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, N
                 contruiArvStringNo(no->esquerda, arvoreString, size, posicao + 1, no, raiz);
             }
         }
-        else if (((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0)) {
-            no->chave = (arvoreString[posicao] - '0');
-            contruiArvStringNo(no, arvoreString, size, posicao + 1, pai, raiz);
+        else if ((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0) {
+            int numDigitos = verificaNumDigitos(arvoreString, posicao);
+            no->chave = digitosString(arvoreString, posicao, numDigitos, size);
+            contruiArvStringNo(no, arvoreString, size, posicao + numDigitos, pai, raiz);
         }
         else if (arvoreString[posicao] == ')'){
 
@@ -76,11 +78,27 @@ void contruiArvStringNo( No *no, char arvoreString[50], int size, int posicao, N
     }
 }
 
-Arvore* construiArvString(Arvore *a, char arvoreString[50], int size, int posicao){
+void construiArvString(Arvore *a, char arvoreString[50], int size, int posicao){
 
     a->raiz = alocaNo();
-    a->raiz->chave = arvoreString[1] - '0';
-    contruiArvStringNo(a->raiz, arvoreString, size, posicao +2, a->raiz, a->raiz);
+    int numDigitos = verificaNumDigitos(arvoreString, posicao);
+    a->raiz->chave = digitosString(arvoreString, posicao, numDigitos, size);
+    contruiArvStringNo(a->raiz, arvoreString, size, posicao +numDigitos+1, a->raiz, a->raiz);
+}
+
+int verificaNumDigitos(char arvoreString[50], int posicao){
+    int cont = 0;
+    while ((arvoreString[posicao] - '0') <= 9 &&  (arvoreString[posicao] - '0') >= 0){
+        cont++;
+        posicao++;
+    }
+    return cont;
+}
+
+int digitosString(char arvoreString[50], int posicao, int numDigitos, int size){
+    char digitos[numDigitos];
+    memcpy(digitos, &arvoreString[posicao], size);
+    return atoi(digitos);
 }
 
 int verificaExistente(No *x, int num){
