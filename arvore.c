@@ -236,12 +236,21 @@ void removeNoAux(No* x, int num){
         else{
             paiSucessor->esquerda = NULL;
         }
-        no->chave = sucessor->chave;
+        if (pai->direita == no){
+            pai->direita = sucessor;
+            pai->direita->esquerda = no->esquerda;
+        }
+        else if (pai->esquerda == no){
+            pai->esquerda = sucessor;
+            pai->esquerda->direita = no->direita;
+            pai->esquerda->esquerda = no->esquerda;
+
+        }
         if (sucessor->direita != NULL){
             paiSucessor->direita = sucessor->direita;
             sucessor->direita->direita = NULL;
         }
-        desalocaNo(sucessor);
+        desalocaNo(no);
     }
 
 }
