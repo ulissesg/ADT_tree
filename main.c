@@ -44,7 +44,7 @@ int main() {
 //    printf("\nno busca pai: %d\n", x->chave);
 
 //    removeNo(arv, 5);
-    removeNo(arv, 3);
+    removeNo(arv, 56);
 
     imprimeArvVisual(arv);
 

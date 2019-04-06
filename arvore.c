@@ -191,69 +191,95 @@ void removeNo(Arvore *a, int num){
 }
 
 void removeNoAux(No* x, int num){
+
     No *no = buscaNoAux(x, num);
     No *pai = buscaNoPaiAux(x, num);
+
     if(no->direita == NULL && no->esquerda == NULL){
-        if (pai->esquerda == no){
-            pai->esquerda = NULL;
-        }
-        else if (pai->direita == no){
-            pai->direita = NULL;
-        }
-        desalocaNo(no);
+        removeNoFolha(no, pai);
     }
     else if (no->direita == NULL || no->esquerda == NULL){
-        if (no->direita != NULL){
-            if (pai->direita == no){
-                pai->direita = no->direita;
-            }
-            else if (pai->esquerda == no){
-                pai->esquerda = no->direita;
-            }
-        }
-        else if (no->esquerda != NULL){
-            if (pai->esquerda == no){
-                pai->esquerda = no->esquerda;
-            }
-            else if (pai->direita == no){
-                pai->direita = no->esquerda;
-            }
-        }
-        if (pai->esquerda->chave == num){
-            pai->esquerda = NULL;
-        }
-        else if (pai->direita->chave == num){
-            pai->direita = NULL;
-        }
-        desalocaNo(no);
+       removeNoUmFilho(no, pai);
     }
     else if (no->direita != NULL && no->esquerda != NULL){
-        No* sucessor = menorSucessor(no);
-        No* paiSucessor = buscaNoPaiAux(x, sucessor->chave);
-        if (pai->direita == no){
-            paiSucessor->direita->esquerda = NULL;
-        }
-        else{
-            paiSucessor->esquerda = NULL;
-        }
-        if (pai->direita == no){
-            pai->direita = sucessor;
-            pai->direita->esquerda = no->esquerda;
-        }
-        else if (pai->esquerda == no){
-            pai->esquerda = sucessor;
-            pai->esquerda->direita = no->direita;
-            pai->esquerda->esquerda = no->esquerda;
-
-        }
-        if (sucessor->direita != NULL){
-            paiSucessor->direita = sucessor->direita;
-            sucessor->direita->direita = NULL;
-        }
-        desalocaNo(no);
+        removeNoDoisFilhos(x, no, pai);
     }
 
 }
+
+void removeNoFolha(No* no, No* pai){
+    if (pai->esquerda == no){
+        pai->esquerda = NULL;
+    }
+    else if (pai->direita == no){
+        pai->direita = NULL;
+    }
+    desalocaNo(no);
+}
+
+void removeNoUmFilho(No* no, No* pai){
+    if (no->direita != NULL){
+        if (pai->direita == no){
+            pai->direita = no->direita;
+        }
+        else if (pai->esquerda == no){
+            pai->esquerda = no->direita;
+        }
+    }
+    else if (no->esquerda != NULL){
+        if (pai->esquerda == no){
+            pai->esquerda = no->esquerda;
+        }
+        else if (pai->direita == no){
+            pai->direita = no->esquerda;
+        }
+    }
+    if (pai->esquerda->chave == no->chave){
+        pai->esquerda = NULL;
+    }
+    else if (pai->direita->chave == no->chave){
+        pai->direita = NULL;
+    }
+    desalocaNo(no);
+}
+
+void removeNoDoisFilhos(No* x,No* no, No* pai){
+
+    No* sucessor = menorSucessor(no);
+    No* paiSucessor = buscaNoPaiAux(x, sucessor->chave);
+
+    if (pai->direita == no){
+
+        paiSucessor->direita->esquerda = NULL;
+
+    }
+    else{
+
+        paiSucessor->esquerda = NULL;
+
+    }
+    if (pai->direita == no){
+
+        pai->direita = sucessor;
+        pai->direita->esquerda = no->esquerda;
+
+    }
+    else if (pai->esquerda == no){
+
+        pai->esquerda = sucessor;
+        pai->esquerda->direita = no->direita;
+        pai->esquerda->esquerda = no->esquerda;
+
+    }
+    if (sucessor->direita != NULL){
+
+        paiSucessor->direita = sucessor->direita;
+        sucessor->direita->direita = NULL;
+        
+    }
+    desalocaNo(no);
+}
+
 
 No * menorSucessor(No * x){
     x = x->direita;
@@ -273,7 +299,6 @@ void imprimiArv(Arvore *a){
         retiraNoFila(aux);
         printf(">%d\n", noAux->chave);
     }
-
 }
 
 void imprimeArvVisualNo(No* no){
@@ -284,19 +309,15 @@ void imprimeArvVisualNo(No* no){
         imprimeArvVisualNo(no->esquerda);
         imprimeArvVisualNo(no->direita);
         printf(")");
-
     }
 }
 
 void imprimeArvVisual (Arvore *a){
-
     imprimeArvVisualNo(a->raiz);
-
 }
 
 int numeroNo(Arvore *a){
     return contaNo(a->raiz);
-
 }
 
 int contaNo(No *x){
@@ -309,7 +330,6 @@ int contaNo(No *x){
         if (x->direita != NULL) {
             num += contaNo(x->direita);
         }
-
     }
     return num;
 }

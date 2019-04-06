@@ -49,6 +49,12 @@ void removeNo(Arvore *a, int num);
 
 void removeNoAux(No* x, int num);
 
+void removeNoFolha(No* no, No* pai);
+
+void removeNoUmFilho(No* no, No* pai);
+
+void removeNoDoisFilhos(No* x, No* no, No* pai);
+
 No * menorSucessor(No * x);
 
 void imprimiArv(Arvore *a);
